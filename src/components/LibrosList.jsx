@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+
+import LibroCard from "./LibroCard";
 
 const LibrosList = () => {
   const [status, setStatus] = useState("Cargando...");
@@ -53,19 +54,7 @@ const LibrosList = () => {
 
       <div>
         {librosFilter.map((libro, key) => (
-          <div key={key} className="card">
-            <div className="container">
-              <h4>
-                <b>
-                  <Link to={`/${libro.id}`}>{libro.nombre}</Link>
-                </b>
-              </h4>
-              <p>
-                {libro.descripcion} - Estado:{" "}
-                {libro.persona_id > 0 ? "prestado" : "disponible"}
-              </p>
-            </div>
-          </div>
+          <LibroCard  key={key} libro={libro} />
         ))}
       </div>
     </div>
