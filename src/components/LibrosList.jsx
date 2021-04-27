@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import LibroCard from "./LibroCard";
+import LibroCard from "./molecules/LibroCard";
 
 const LibrosList = () => {
   const [status, setStatus] = useState("Cargando...");

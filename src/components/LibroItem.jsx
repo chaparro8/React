@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import LibroForm from "./LibroForm";
+import LibroForm from "./molecules/LibroForm";
 
 const LibroItem = () => {
   let { id } = useParams();
