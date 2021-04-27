@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import CategoriaCard from "./molecules/CategoriaCard";
+import axios from "axios";
+import PersonaCard from "./molecules/PersonaCard";
 
-const CategoriaList = () => {
-  const [status, setStatus] = useState("Cargando..");
-  const [categorias, setCategorias] = useState([]);
-  const [categoriasFilter, setCategoriasFilter] = useState([]);
+const PersonaList = () => {
+  const [status, setStatus] = useState("Cargando...");
+  const [personas, setPersonas] = useState([]);
+  const [personasFilter, setPersonasFilter] = useState([]);
   const [inputFilter, setInputFilter] = useState("");
 
   React.useEffect(() => {
-    const getCategorias = async () => {
+    const getPersonas = async () => {
       try {
-        const res = await axios.get("http://localhost:706/categoria");
+        const res = await axios.get("http://localhost:706/persona");
         if (res.status === 200) {
-          setCategorias(res.data.respuesta);
-          setCategoriasFilter(res.data.respuesta);
+          setPersonas(res.data.respuesta);
+          setPersonasFilter(res.data.respuesta);
           setStatus();
         } else {
+          // TODO ver node que errores da.
           setStatus(`UPS!!! algo anda mal -> Code: ${res.status}`);
         }
       } catch (error) {
@@ -25,15 +26,14 @@ const CategoriaList = () => {
       }
     };
 
-    getCategorias();
+    getPersonas();
   }, []);
 
   React.useEffect(() => {
-    const searched = categorias.filter((categoria) =>
-      categoria.nombre.toLowerCase().includes(inputFilter.toLowerCase())
+    const searched = personas.filter((persona) =>
+      persona.nombre.toLowerCase().includes(inputFilter.toLowerCase())
     );
-    console.log(searched);
-    setCategoriasFilter(searched);
+    setPersonasFilter(searched);
   }, [inputFilter]);
 
   const onChangeSearch = (e) => {
@@ -42,7 +42,7 @@ const CategoriaList = () => {
   return (
     <div>
       <div className="libropage">
-        <h2>Categorias</h2>{" "}
+        <h2>Personas</h2>{" "}
         <input
           type="search"
           placeholder="Buscamos algo?"
@@ -52,8 +52,8 @@ const CategoriaList = () => {
       </div>
 
       <div className="wrapper">
-        {categoriasFilter.map((categoria, key) => (
-          <CategoriaCard key={key} categoria={categoria} />
+        {personasFilter.map((persona, key) => (
+          <PersonaCard key={key} persona={persona} />
         ))}
       </div>
       <hr />
@@ -66,4 +66,5 @@ const CategoriaList = () => {
   );
 };
 
-export default CategoriaList;
+
+export default PersonaList;

@@ -58,8 +58,12 @@ const LibrosList = () => {
           <LibroCard key={key} libro={libro} />
         ))}
       </div>
-      <hr/>
+      <hr />
       <Link to="/categoria">Categorias</Link>
+      <br />
+      <Link to="/">Libros</Link>
+      <br />
+      <Link to="/persona">Personas</Link>
     </div>
   );
 };

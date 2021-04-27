@@ -6,6 +6,8 @@ import LibroItem from "./components/LibroItem";
 import LibrosList from "./components/LibrosList";
 import CategoriaList from "./components/CategoriaList";
 import CategoriaItem from "./components/CategoriaItem";
+import PersonaList from "./components/PersonaList";
+import PersonaItem from "./components/PersonaItem";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route exact path="/libro/:id" component={LibroItem} />
           <Route exact path="/categoria" component={CategoriaList} />
           <Route exact path="/categoria/:id" component={CategoriaItem} />
+          <Route exact path="/persona" component={PersonaList} />
+          <Route exact path="/persona/:id" component={PersonaItem} />
         </Router>
       </DataProvider>
     </>
