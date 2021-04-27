@@ -7,7 +7,7 @@ const LibroCard = ({ libro }) => {
       <div className="container">
         <h4>
           <b>
-            <Link to={`/${libro.id}`}>{libro.nombre}</Link>
+            <Link to={`/libro/${libro.id}`}>{libro.nombre}</Link>
           </b>
         </h4>
         <p>

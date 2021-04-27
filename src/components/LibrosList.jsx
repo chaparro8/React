@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import LibroCard from "./molecules/LibroCard";
@@ -54,9 +55,11 @@ const LibrosList = () => {
 
       <div className="wrapper">
         {librosFilter.map((libro, key) => (
-          <LibroCard  key={key} libro={libro} />
+          <LibroCard key={key} libro={libro} />
         ))}
       </div>
+      <hr/>
+      <Link to="/categoria">Categorias</Link>
     </div>
   );
 };
