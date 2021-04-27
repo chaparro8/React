@@ -10,7 +10,8 @@ import PersonaList from "./components/PersonaList";
 import PersonaItem from "./components/PersonaItem";
 
 function App() {
-  const test = "test";
+  const test = "hola ";
+  const nose = "nose";
   return (
     <>
       <DataProvider>
