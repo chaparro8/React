@@ -42,7 +42,7 @@ const LibrosList = () => {
 
   return (
     <div>
-      <div>
+      <div className="libropage">
         <h2>Libros</h2>{" "}
         <input
           type="search"
@@ -52,7 +52,7 @@ const LibrosList = () => {
         {status}
       </div>
 
-      <div>
+      <div className="wrapper">
         {librosFilter.map((libro, key) => (
           <LibroCard  key={key} libro={libro} />
         ))}
