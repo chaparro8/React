@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaUserPlus, FaTrashAlt, FaUserMinus } from "react-icons/fa";
 
 const LibroCard = ({ libro }) => {
   return (
@@ -14,6 +15,15 @@ const LibroCard = ({ libro }) => {
           {libro.descripcion} - Estado:{" "}
           {libro.persona_id > 0 ? "prestado" : "disponible"}
         </p>
+        <button>
+          <FaUserPlus />{" "}
+        </button>
+        <button>
+          <FaUserMinus />{" "}
+        </button>
+        <button>
+          <FaTrashAlt color="red" />
+        </button>
       </div>
     </div>
   );
