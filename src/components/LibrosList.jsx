@@ -30,7 +30,6 @@ const LibrosList = () => {
       const res = await axios.get("http://localhost:706/libros");
       if (res.status === 200) {
         setLibros(res.data.books);
-        setLibrosFilter(res.data.books);
       } else {
         // TODO ver node que errores da.
         setStatus(`UPS!!! algo anda mal -> Code: ${res.status}`);
@@ -50,7 +49,7 @@ const LibrosList = () => {
       libro.nombre.toLowerCase().includes(inputFilter.toLowerCase())
     );
     setLibrosFilter(searched);
-  }, [inputFilter]);
+  }, [inputFilter, libros]);
 
   const onChangeSearch = (e) => {
     setInputFilter(e.target.value);
