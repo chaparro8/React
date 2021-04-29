@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { DataProvider } from "./context/DataContext";
 
 import LibroItem from "./components/LibroItem";
@@ -10,7 +10,6 @@ import PersonaList from "./components/PersonaList";
 import PersonaItem from "./components/PersonaItem";
 
 function App() {
-
   return (
     <>
       <DataProvider>

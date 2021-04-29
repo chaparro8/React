@@ -30,6 +30,7 @@ const LibrosList = () => {
       const res = await axios.get("http://localhost:706/libros");
       if (res.status === 200) {
         setLibros(res.data.books);
+        setStatus(null);
       } else {
         // TODO ver node que errores da.
         setStatus(`UPS!!! algo anda mal -> Code: ${res.status}`);
@@ -64,7 +65,11 @@ const LibrosList = () => {
           placeholder="Buscamos algo?"
           onChange={(e) => onChangeSearch(e)}
         />{" "}
-        <button className="button" onClick={() => getLibros()}>
+        <button
+          title="Actualizar"
+          className="button"
+          onClick={() => getLibros()}
+        >
           <FaSyncAlt />
         </button>
         {status}

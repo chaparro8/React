@@ -1,7 +1,13 @@
 import React from "react";
 import axios from "axios";
 
-const LibroPrestar = ({ personas, libro_id, getLibros, setShowSelect }) => {
+const LibroPrestar = ({
+  personas,
+  libro_id,
+  getLibros,
+  setShowSelect,
+  setStatus,
+}) => {
   const prestar = async (persona_id) => {
     try {
       const res = await axios.put(
@@ -13,13 +19,11 @@ const LibroPrestar = ({ personas, libro_id, getLibros, setShowSelect }) => {
       if (res.status === 201) {
         getLibros();
         setShowSelect(false);
-        console.log("PRESTADO");
       } else {
-        console.log("UPS Algo paso.");
+        setStatus("UPS Algo paso. Code: " + res.status);
       }
     } catch (error) {
-      console.log("UPS Algo paso.");
-      console.log(error);
+      setStatus("UPS Algo paso." + error);
     }
   };
 

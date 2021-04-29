@@ -6,22 +6,23 @@ import LibroPrestar from "./LibroPrestar";
 
 const LibroCard = ({ libro, setStatus, getLibros, personas }) => {
   const [showSelect, setShowSelect] = useState(false);
+  const [errorDelete, setErrorDelete] = useState(null);
 
   const handlerDelete = async (id) => {
     try {
-      console.log(`Delete ${id}`);
       const res = await axios.delete(`http://localhost:706/libros/${id}`);
-      await getLibros();
-      setStatus("Libro Borrado");
-
-      setTimeout(() => {
-        setStatus(null);
-      }, 3000);
+      if (res.status === 200) {
+        await getLibros();
+        setStatus("Libro Borrado");
+        setErrorDelete(null);
+        setTimeout(() => {
+          setStatus(null);
+        }, 3000);
+      } else {
+        setStatus(`Ups code -> ${res.status}`);
+      }
     } catch (error) {
-      setStatus(error.mensaje);
-      setTimeout(() => {
-        setStatus(null);
-      }, 3000);
+      setErrorDelete(error.message);
     }
   };
 
@@ -31,16 +32,16 @@ const LibroCard = ({ libro, setStatus, getLibros, personas }) => {
         `http://localhost:706/libros/prestar/${libro_id}`
       );
       if (res.status === 201) {
-        console.log("Devuelto");
         getLibros();
       } else {
-        console.log("UPS Algo paso.");
+        setStatus(`Ups code -> ${res.status}`);
       }
     } catch (error) {
-      console.log("UPS Algo paso.");
-      console.log(error);
+      setStatus(`Ups code -> ${error.message}`);
     }
+    return null;
   };
+
   return (
     <div className="card">
       <div className="container">
@@ -70,16 +71,17 @@ const LibroCard = ({ libro, setStatus, getLibros, personas }) => {
             <FaUserPlus color="green" />{" "}
           </button>
         )}
-
         <button
           title="Borrar Libro"
           className="button"
           onClick={() => handlerDelete(libro.id)}
         >
           <FaTrashAlt color="red" />
-        </button>
+        </button>{" "}
+        {errorDelete}
         {showSelect ? (
           <LibroPrestar
+            setStatus={setStatus}
             personas={personas}
             libro_id={libro.id}
             getLibros={getLibros}
