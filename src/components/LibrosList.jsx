@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import { FaSyncAlt } from "react-icons/fa";
 import LibroCard from "./molecules/LibroCard";
 
 const LibrosList = () => {
@@ -9,25 +9,40 @@ const LibrosList = () => {
   const [libros, setLibros] = useState([]);
   const [librosFilter, setLibrosFilter] = useState([]);
   const [inputFilter, setInputFilter] = useState("");
+  const [personas, setPersonas] = useState([]);
+
+  const getPersonas = async () => {
+    try {
+      const res = await axios.get("http://localhost:706/persona");
+      if (res.status === 200) {
+        setPersonas(res.data.respuesta);
+        setStatus();
+      } else {
+        setStatus(`UPS!!! algo anda mal -> Code: ${res.status}`);
+      }
+    } catch (error) {
+      setStatus(`UPS!!! algo anda mal -> ${error}`);
+    }
+  };
+
+  const getLibros = async () => {
+    try {
+      const res = await axios.get("http://localhost:706/libros");
+      if (res.status === 200) {
+        setLibros(res.data.books);
+        setLibrosFilter(res.data.books);
+      } else {
+        // TODO ver node que errores da.
+        setStatus(`UPS!!! algo anda mal -> Code: ${res.status}`);
+      }
+    } catch (error) {
+      setStatus(`UPS!!! algo anda mal -> ${error}`);
+    }
+  };
 
   React.useEffect(() => {
-    const getLibros = async () => {
-      try {
-        const res = await axios.get("http://localhost:706/libros");
-        if (res.status === 200) {
-          setLibros(res.data.books);
-          setLibrosFilter(res.data.books);
-          setStatus();
-        } else {
-          // TODO ver node que errores da.
-          setStatus(`UPS!!! algo anda mal -> Code: ${res.status}`);
-        }
-      } catch (error) {
-        setStatus(`UPS!!! algo anda mal -> ${error}`);
-      }
-    };
-
     getLibros();
+    getPersonas();
   }, []);
 
   React.useEffect(() => {
@@ -49,13 +64,22 @@ const LibrosList = () => {
           type="search"
           placeholder="Buscamos algo?"
           onChange={(e) => onChangeSearch(e)}
-        />
+        />{" "}
+        <button className="button" onClick={() => getLibros()}>
+          <FaSyncAlt />
+        </button>
         {status}
       </div>
 
       <div className="wrapper">
         {librosFilter.map((libro, key) => (
-          <LibroCard key={key} libro={libro} />
+          <LibroCard
+            key={key}
+            libro={libro}
+            setStatus={setStatus}
+            getLibros={getLibros}
+            personas={personas}
+          />
         ))}
       </div>
       <hr />
